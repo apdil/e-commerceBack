@@ -22,13 +22,6 @@ class Basket
     private $id;
 
     /**
-     * @var array
-     *
-     * @ORM\Column(name="articles", type="array")
-     */
-    private $articles;
-
-    /**
      * @var int
      *
      * @ORM\Column(name="price", type="integer")
@@ -36,9 +29,9 @@ class Basket
     private $price;
 
     /**
-     * @var \DateTime
+     * @var string
      *
-     * @ORM\Column(name="delivry", type="datetime")
+     * @ORM\Column(name="delivry", type="string", length=255)
      */
     private $delivry;
 
@@ -51,30 +44,6 @@ class Basket
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set articles
-     *
-     * @param array $articles
-     *
-     * @return Basket
-     */
-    public function setArticles($articles)
-    {
-        $this->articles = $articles;
-
-        return $this;
-    }
-
-    /**
-     * Get articles
-     *
-     * @return array
-     */
-    public function getArticles()
-    {
-        return $this->articles;
     }
 
     /**
@@ -104,7 +73,7 @@ class Basket
     /**
      * Set delivry
      *
-     * @param \DateTime $delivry
+     * @param string $delivry
      *
      * @return Basket
      */
@@ -118,7 +87,7 @@ class Basket
     /**
      * Get delivry
      *
-     * @return \DateTime
+     * @return string
      */
     public function getDelivry()
     {

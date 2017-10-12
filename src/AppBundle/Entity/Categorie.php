@@ -5,12 +5,12 @@ namespace AppBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Livreur
+ * Categorie
  *
- * @ORM\Table(name="livreur")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\LivreurRepository")
+ * @ORM\Table(name="categorie")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CategorieRepository")
  */
-class Livreur
+class Categorie
 {
     /**
      * @var int
@@ -28,13 +28,6 @@ class Livreur
      */
     private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="mdp", type="string", length=255)
-     */
-    private $mdp;
-
 
     /**
      * Get id
@@ -51,7 +44,7 @@ class Livreur
      *
      * @param string $name
      *
-     * @return Livreur
+     * @return Categorie
      */
     public function setName($name)
     {
@@ -68,30 +61,6 @@ class Livreur
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set mdp
-     *
-     * @param string $mdp
-     *
-     * @return Livreur
-     */
-    public function setMdp($mdp)
-    {
-        $this->mdp = $mdp;
-
-        return $this;
-    }
-
-    /**
-     * Get mdp
-     *
-     * @return string
-     */
-    public function getMdp()
-    {
-        return $this->mdp;
     }
 }
 

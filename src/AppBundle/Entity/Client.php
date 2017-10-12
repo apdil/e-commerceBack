@@ -38,9 +38,9 @@ class Client
     /**
      * @var string
      *
-     * @ORM\Column(name="surname", type="string", length=255)
+     * @ORM\Column(name="lastname", type="string", length=255)
      */
-    private $surname;
+    private $lastname;
 
     /**
      * @var string
@@ -48,13 +48,6 @@ class Client
      * @ORM\Column(name="email", type="string", length=255)
      */
     private $email;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="location", type="string", length=255)
-     */
-    private $location;
 
     /**
      * @var \DateTime
@@ -130,27 +123,27 @@ class Client
     }
 
     /**
-     * Set surname
+     * Set lastname
      *
-     * @param string $surname
+     * @param string $lastname
      *
      * @return Client
      */
-    public function setSurname($surname)
+    public function setLastname($lastname)
     {
-        $this->surname = $surname;
+        $this->lastname = $lastname;
 
         return $this;
     }
 
     /**
-     * Get surname
+     * Get lastname
      *
      * @return string
      */
-    public function getSurname()
+    public function getLastname()
     {
-        return $this->surname;
+        return $this->lastname;
     }
 
     /**
@@ -175,30 +168,6 @@ class Client
     public function getEmail()
     {
         return $this->email;
-    }
-
-    /**
-     * Set location
-     *
-     * @param string $location
-     *
-     * @return Client
-     */
-    public function setLocation($location)
-    {
-        $this->location = $location;
-
-        return $this;
-    }
-
-    /**
-     * Get location
-     *
-     * @return string
-     */
-    public function getLocation()
-    {
-        return $this->location;
     }
 
     /**

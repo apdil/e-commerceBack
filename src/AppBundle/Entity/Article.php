@@ -31,13 +31,6 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="size", type="string", length=255)
-     */
-    private $size;
-
-    /**
-     * @var string
-     *
      * @ORM\Column(name="description", type="text")
      */
     private $description;
@@ -52,7 +45,7 @@ class Article
     /**
      * @var string
      *
-     * @ORM\Column(name="img", type="string", length=505)
+     * @ORM\Column(name="img", type="string", length=255)
      */
     private $img;
 
@@ -62,13 +55,6 @@ class Article
      * @ORM\Column(name="marque", type="string", length=255)
      */
     private $marque;
-
-    /**
-     * @var array
-     *
-     * @ORM\Column(name="categorie", type="array")
-     */
-    private $categorie;
 
 
     /**
@@ -103,30 +89,6 @@ class Article
     public function getName()
     {
         return $this->name;
-    }
-
-    /**
-     * Set size
-     *
-     * @param string $size
-     *
-     * @return Article
-     */
-    public function setSize($size)
-    {
-        $this->size = $size;
-
-        return $this;
-    }
-
-    /**
-     * Get size
-     *
-     * @return string
-     */
-    public function getSize()
-    {
-        return $this->size;
     }
 
     /**
@@ -223,30 +185,6 @@ class Article
     public function getMarque()
     {
         return $this->marque;
-    }
-
-    /**
-     * Set categorie
-     *
-     * @param array $categorie
-     *
-     * @return Article
-     */
-    public function setCategorie($categorie)
-    {
-        $this->categorie = $categorie;
-
-        return $this;
-    }
-
-    /**
-     * Get categorie
-     *
-     * @return array
-     */
-    public function getCategorie()
-    {
-        return $this->categorie;
     }
 }
 
