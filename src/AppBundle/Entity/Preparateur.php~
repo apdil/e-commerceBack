@@ -7,12 +7,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
- * Categorie
+ * Preparateur
  *
- * @ORM\Table(name="categorie")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\CategorieRepository")
+ * @ORM\Table(name="preparateur")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\PreparateurRepository")
  */
-class Categorie
+class Preparateur
 {
     /**
      * @var int
@@ -31,12 +31,19 @@ class Categorie
     private $name;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Article", mappedBy="categories")
+     * @var string
+     *
+     * @ORM\Column(name="mdp", type="string", length=255)
+     */
+    private $mdp;
+
+    /**
+    * @ORM\ManyToMany(targetEntity="Commande", mappedBy="preparateur")
     */
-    private $articles;
+    private $commandes;
     
     public function __construct() {
-        $this->articles = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
 
@@ -55,7 +62,7 @@ class Categorie
      *
      * @param string $name
      *
-     * @return Categorie
+     * @return Preparateur
      */
     public function setName($name)
     {
@@ -75,36 +82,27 @@ class Categorie
     }
 
     /**
-     * Add article
+     * Set mdp
      *
-     * @param \AppBundle\Entity\Article $article
+     * @param string $mdp
      *
-     * @return Categorie
+     * @return Preparateur
      */
-    public function addArticle(\AppBundle\Entity\Article $article)
+    public function setMdp($mdp)
     {
-        $this->articles[] = $article;
+        $this->mdp = $mdp;
 
         return $this;
     }
 
     /**
-     * Remove article
+     * Get mdp
      *
-     * @param \AppBundle\Entity\Article $article
+     * @return string
      */
-    public function removeArticle(\AppBundle\Entity\Article $article)
+    public function getMdp()
     {
-        $this->articles->removeElement($article);
-    }
-
-    /**
-     * Get articles
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getArticles()
-    {
-        return $this->articles;
+        return $this->mdp;
     }
 }
+

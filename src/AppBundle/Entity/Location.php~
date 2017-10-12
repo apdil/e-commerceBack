@@ -160,28 +160,5 @@ class Location
     {
         return $this->tel;
     }
-
-    /**
-     * Set clients
-     *
-     * @param \AppBundle\Entity\Client $clients
-     *
-     * @return Location
-     */
-    public function setClients(\AppBundle\Entity\Client $clients = null)
-    {
-        $this->clients = $clients;
-
-        return $this;
-    }
-
-    /**
-     * Get clients
-     *
-     * @return \AppBundle\Entity\Client
-     */
-    public function getClients()
-    {
-        return $this->clients;
-    }
 }
+
