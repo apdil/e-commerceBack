@@ -50,8 +50,7 @@ class Location
     private $tel;
 
     /**
-    * @ORM\ManyToOne(targetEntity="Client", inversedBy="clients")
-    * @ORM\JoinColumn(name="clients_id", referencedColumnName="id")
+    * @ORM\OneToMany(targetEntity="Client", mappedBy="location")
     */
     private $clients;
 
@@ -183,5 +182,36 @@ class Location
     public function getClients()
     {
         return $this->clients;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->clients = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add client
+     *
+     * @param \AppBundle\Entity\Client $client
+     *
+     * @return Location
+     */
+    public function addClient(\AppBundle\Entity\Client $client)
+    {
+        $this->clients[] = $client;
+
+        return $this;
+    }
+
+    /**
+     * Remove client
+     *
+     * @param \AppBundle\Entity\Client $client
+     */
+    public function removeClient(\AppBundle\Entity\Client $client)
+    {
+        $this->clients->removeElement($client);
     }
 }

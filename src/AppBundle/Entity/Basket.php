@@ -51,7 +51,13 @@ class Basket
      * @ORM\OneToOne(targetEntity="Client")
      * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
      */
-    private $client_parent; 
+    private $client_parent;
+
+    /**
+     * @ORM\OneToOne(targetEntity="Commande")
+     * @ORM\JoinColumn(name="commande_id", referencedColumnName="id")
+     */
+    private $commande_parent; 
     
     public function __construct() {
         $this->articles = new ArrayCollection();
@@ -207,5 +213,29 @@ class Basket
     public function getClientParent()
     {
         return $this->client_parent;
+    }
+
+    /**
+     * Set commandeParent
+     *
+     * @param \AppBundle\Entity\Commande $commandeParent
+     *
+     * @return Basket
+     */
+    public function setCommandeParent(\AppBundle\Entity\Commande $commandeParent = null)
+    {
+        $this->commande_parent = $commandeParent;
+
+        return $this;
+    }
+
+    /**
+     * Get commandeParent
+     *
+     * @return \AppBundle\Entity\Commande
+     */
+    public function getCommandeParent()
+    {
+        return $this->commande_parent;
     }
 }

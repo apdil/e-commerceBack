@@ -35,6 +35,12 @@ class Commande
     */
     private $client;
 
+    /**
+     * @ORM\OneToOne(targetEntity="Basket")
+     * @ORM\JoinColumn(name="basket_id", referencedColumnName="id")
+     */
+    private $basket_parent; 
+
     public function __construct(){
         $this->preparateur = new ArrayCollection();
         $this->client = new ArrayCollection();
@@ -117,5 +123,29 @@ class Commande
     public function getClient()
     {
         return $this->client;
+    }
+
+    /**
+     * Set basketParent
+     *
+     * @param \AppBundle\Entity\Basket $basketParent
+     *
+     * @return Commande
+     */
+    public function setBasketParent(\AppBundle\Entity\Basket $basketParent = null)
+    {
+        $this->basket_parent = $basketParent;
+
+        return $this;
+    }
+
+    /**
+     * Get basketParent
+     *
+     * @return \AppBundle\Entity\Basket
+     */
+    public function getBasketParent()
+    {
+        return $this->basket_parent;
     }
 }

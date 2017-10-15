@@ -9,9 +9,8 @@
                 <th>Id</th>
                 <th>Name</th>
                 <th>Mdp</th>
-                <th>Surname</th>
+                <th>Lastname</th>
                 <th>Email</th>
-                <th>Location</th>
                 <th>Birthdate</th>
                 <th>Sex</th>
                 <th>Actions</th>
@@ -23,9 +22,8 @@
                 <td><a href="{{ path('client_show', { 'id': client.id }) }}">{{ client.id }}</a></td>
                 <td>{{ client.name }}</td>
                 <td>{{ client.mdp }}</td>
-                <td>{{ client.surname }}</td>
+                <td>{{ client.lastname }}</td>
                 <td>{{ client.email }}</td>
-                <td>{{ client.location }}</td>
                 <td>{% if client.birthdate %}{{ client.birthdate|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{% if client.sex %}Yes{% else %}No{% endif %}</td>
                 <td>

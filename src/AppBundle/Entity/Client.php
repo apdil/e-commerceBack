@@ -71,7 +71,8 @@ class Client
     private $commandes;
 
     /**
-    * @ORM\OneToMany(targetEntity="Location", mappedBy="clients")
+    * @ORM\ManyToOne(targetEntity="Location", inversedBy="clients")
+    * @ORM\JoinColumn(name="location_id", referencedColumnName="id")
     */
     private $location;
 
@@ -331,5 +332,19 @@ class Client
     public function getBasketParent()
     {
         return $this->basket_parent;
+    }
+
+    /**
+     * Set location
+     *
+     * @param \AppBundle\Entity\Location $location
+     *
+     * @return Client
+     */
+    public function setLocation(\AppBundle\Entity\Location $location = null)
+    {
+        $this->location = $location;
+
+        return $this;
     }
 }
