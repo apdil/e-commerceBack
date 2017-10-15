@@ -32,21 +32,7 @@ class ArticleController extends Controller
             return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $formatted = [];
-        foreach ($articles as $place) {
-            $formatted[] = [
-               'id' => $place->getId(),
-               'name' => $place->getName(),
-               'price' => $place->getPrice(),
-            ];
-        }
-
-        $viewHandler = $this->get('fos_rest.view_handler');
-
-        $view = View::create($formatted);
-        $view->setFormat('json');
-
-        return $viewHandler->handle($view);
+        return $articles;
     }
 
     /**
@@ -63,13 +49,27 @@ class ArticleController extends Controller
             return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $formatted = [];
-        $formatted[] = [
-           'id' => $article->getId(),
-           'name' => $article->getName(),
-           'address' => $article->getAddress(),
-        ];
+        return $article;
+    }
 
-        return new JsonResponse($formatted);
+    /**
+    * @Rest\View(statusCode=Response::HTTP_CREATED)
+    * @Rest\Post("articles")
+    */
+    public function postArticleAction(Request $request)
+    {
+        $article = new Article();
+
+        $article->setName($request->get('name'))
+                ->setDescription($request->get('description'))
+                ->setPrice($request->get('price'))
+                ->setImg($request->get('img'))
+                ->setMarque($request->get('marque'));
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($article);
+        $em->flush();
+
+        return $article;
     }
 }
