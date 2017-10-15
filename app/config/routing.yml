@@ -4,3 +4,6 @@ app:
 article:
     type:     rest
     resource: AppBundle\Controller\ArticleController
+client:
+    type:     rest
+    resource: AppBundle\Controller\ClientController

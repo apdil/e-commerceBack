@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -60,16 +61,17 @@ class ArticleController extends Controller
     {
         $article = new Article();
 
-        $article->setName($request->get('name'))
-                ->setDescription($request->get('description'))
-                ->setPrice($request->get('price'))
-                ->setImg($request->get('img'))
-                ->setMarque($request->get('marque'));
+        $form = $this->createForm(ArticleType::class, $article);
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($article);
-        $em->flush();
+        $form->submit($request->request->all()); // Validation des données
 
-        return $article;
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($article);
+            $em->flush();
+            return $article;
+        } else {
+            return $form;
+        }
     }
 }
