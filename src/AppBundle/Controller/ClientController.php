@@ -29,7 +29,7 @@ class ClientController extends Controller
 
         $clients = $em->getRepository('AppBundle:Client')->findAll();
 
-        if (empty($articles)) {
+        if (empty($clients)) {
             return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
@@ -46,7 +46,7 @@ class ClientController extends Controller
 
         $client = $em->getRepository('AppBundle:Client')->find($id);
 
-        if (empty($articles)) {
+        if (empty($client)) {
             return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
@@ -81,6 +81,24 @@ class ClientController extends Controller
             return $client;
         } else {
             return $form;
+        }
+    }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\Delete("/client/{id}")
+     */
+    public function deleteClientAction($id){
+
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AppBundle:Client')->find($id);
+
+        $location = $client->getLocation();
+
+        if($client){
+            $em->remove($client);
+            $em->remove($location);
+            $em->flush();
         }
     }
 }

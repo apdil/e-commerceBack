@@ -74,4 +74,18 @@ class ArticleController extends Controller
             return $form;
         }
     }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\Delete("article/{id}")
+     */
+    public function deleteArticleAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:Article')->find($id);
+
+        if($article){
+            $em->remove($article);
+            $em->flush();
+        }
+    }
 }
