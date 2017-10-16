@@ -1,0 +1,38 @@
+AppBundle\Entity\Client:
+    attributes:
+        id:
+            groups: ['client', 'location']
+        name:
+            groups: ['client', 'location']
+        mdp:
+            groups: ['client', 'location']
+        lastname:
+            groups: ['client', 'location']
+        email:
+            groups: ['client', 'location']
+        birthdate:
+            groups: ['client', 'location']  
+        sex:
+            groups: ['client', 'location']
+        commandes:
+            groups: ['client', 'location']
+        basket_parent:
+            groups: ['client', 'location']  
+        location:
+            groups: ['client']
+
+
+AppBundle\Entity\Location:
+    attributes:
+        id:
+            groups: ['client', 'location']
+        adress:
+            groups: ['client', 'location']
+        city:
+            groups: ['client', 'location']
+        codePostale:
+            groups: ['client', 'location']
+        tel:
+            groups: ['client', 'location']
+        clients:
+            groups: ['location']

@@ -16,15 +16,11 @@ use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\View\ViewHandler;
 use FOS\RestBundle\View\View;
 
-/**
- * Client controller.
- *
- * @Route("client")
- */
+
 class ClientController extends Controller
 {
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"client"})
      * @Rest\Get("/clients")
      */
     public function getClientsAction()
@@ -33,7 +29,28 @@ class ClientController extends Controller
 
         $clients = $em->getRepository('AppBundle:Client')->findAll();
 
+        if (empty($articles)) {
+            return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
+
         return $clients;
+    }
+
+    /**
+     * @Rest\View(serializerGroups={"client"})
+     * @Rest\Get("/client/{id}")
+     */
+    public function getClientAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $client = $em->getRepository('AppBundle:Client')->find($id);
+
+        if (empty($articles)) {
+            return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        return $client;
     }
 
     /**
