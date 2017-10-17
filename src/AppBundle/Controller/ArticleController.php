@@ -76,6 +76,32 @@ class ArticleController extends Controller
     }
 
     /**
+     * @Rest\View()
+     * @Rest\Put("article/{id}")
+     */
+    public function putArticleAction($id, Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:Article')->find($id);
+
+        if (empty($article)) {
+            return new JsonResponse(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $form = $this->createForm(ArticleType::class, $article);
+        
+        $form->submit($request->request->all());
+
+        if($form->isValid()){
+            $em->merge($article);
+            $em->flush();
+            return $article;
+        } else {
+            return $form;
+        }
+    }
+
+    /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
      * @Rest\Delete("article/{id}")
      */

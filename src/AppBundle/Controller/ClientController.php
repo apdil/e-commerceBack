@@ -85,6 +85,33 @@ class ClientController extends Controller
     }
 
     /**
+     * @Rest\View()
+     * @Rest\Put("/client/{id}")
+     */
+
+    public function putClientAction($id, Request $request){
+
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AppBundle:Client')->find($id);
+
+        if (empty($client)) {
+            return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
+
+        $form = $this->createForm(ClientType::class, $client);
+
+        $form->submit($request->request->all());
+
+        if($form->isValid()){
+            $em->merge($client);
+            $em->flush();
+            return $client;
+        } else {
+            return $form;
+        }
+    }
+
+    /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
      * @Rest\Delete("/client/{id}")
      */
