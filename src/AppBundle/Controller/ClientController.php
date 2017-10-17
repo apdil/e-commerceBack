@@ -85,11 +85,23 @@ class ClientController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"client"})
      * @Rest\Put("/client/{id}")
      */
-
     public function putClientAction($id, Request $request){
+        return $this->updateClientAction($id, $request, true);
+    }
+
+    /**
+     * @Rest\View(serializerGroups={"client"})
+     * @Rest\Patch("/client/{id}")
+     */
+    public function patchClientAction($id, Request $request){
+        return $this->updateClientAction($id, $request, false);
+    }
+    
+    
+    private function updateClientAction($id, Request $request, $clearMissing){
 
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('AppBundle:Client')->find($id);
@@ -100,7 +112,7 @@ class ClientController extends Controller
 
         $form = $this->createForm(ClientType::class, $client);
 
-        $form->submit($request->request->all());
+        $form->submit($request->request->all(), $clearMissing);
 
         if($form->isValid()){
             $em->merge($client);

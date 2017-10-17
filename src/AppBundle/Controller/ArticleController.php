@@ -77,10 +77,26 @@ class ArticleController extends Controller
 
     /**
      * @Rest\View()
+     * @Rest\Patch("article/{id}")
+     */
+
+    public function patchArticleAction($id, Request $request){
+        
+        return $this->updateArticleAction($id, $request, false);
+    }
+
+    /**
+     * @Rest\View()
      * @Rest\Put("article/{id}")
      */
     public function putArticleAction($id, Request $request){
+        
+       return $this->updateArticleAction($id, $request, true);
+    }
 
+
+    private function updateArticleAction($id, Request $request, $clearMissing){
+        
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);
 
@@ -90,7 +106,7 @@ class ArticleController extends Controller
 
         $form = $this->createForm(ArticleType::class, $article);
         
-        $form->submit($request->request->all());
+        $form->submit($request->request->all(), $clearMissing);
 
         if($form->isValid()){
             $em->merge($article);
@@ -100,6 +116,7 @@ class ArticleController extends Controller
             return $form;
         }
     }
+    
 
     /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
