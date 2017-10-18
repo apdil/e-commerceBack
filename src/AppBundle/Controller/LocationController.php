@@ -44,6 +44,7 @@ class LocationController extends Controller
         return $location;
     }
 
+    // add other location to client
     /**
      * @Rest\View(serializerGroups={"location"})
      * @Rest\Post("/location/client/{client_id}")
@@ -72,6 +73,25 @@ class LocationController extends Controller
             return $location;
         } else {
             return $form;
+        }
+    }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\Delete("/location/{id}")
+     */
+    public function deleteLocationAction($id){
+        
+        $em = $this->getDoctrine()->getManager();
+        $location = $em->getRepository('AppBundle:Location')->find($id);
+        
+        if (empty($location)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
+                
+        if($location){
+           $em->remove($location);
+           $em->flush();
         }
     }
 }
