@@ -19,7 +19,7 @@ use FOS\RestBundle\View\View;
 class CategorieController extends Controller
 {
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"categorie"})
      * @Rest\Get("article/{id}/categories")
      */
     public function getCategoriesAction($id){
@@ -34,17 +34,20 @@ class CategorieController extends Controller
         return $article->getCategories();
     }
 
+    //filter articles by categories
     /**
-     * @Rest\View()
-     * @Rest\Post("article/{id}/categorie")
+     * @Rest\View(serializerGroups={"categorie"})
+     * @Rest\Get("articles/categorie/{id}")
      */
-    public function postCategorieAction($id){
+    public function getArticlesCategorieAction($id){
         
         $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository()->find($id);
+        $categorie = $em->getRepository('AppBundle:Categorie')->find($id);
 
-        if(empty($article)){
-            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);            
+        if (empty($categorie)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
+
+        return $categorie->getArticles();
     }
 }
