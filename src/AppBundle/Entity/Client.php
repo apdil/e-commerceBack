@@ -79,7 +79,7 @@ class Client
      * @ORM\OneToOne(targetEntity="Basket")
      * @ORM\JoinColumn(name="basket_id", referencedColumnName="id")
      */
-    private $basket_parent;    
+    private $basket_parent;
 
     public function __construct() {
         $this->commandes = new ArrayCollection();

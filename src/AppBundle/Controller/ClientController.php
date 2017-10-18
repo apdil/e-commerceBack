@@ -4,6 +4,7 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Location;
+use AppBundle\Entity\Basket;
 use AppBundle\Form\ClientType;
 use AppBundle\Form\LocationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -51,7 +52,7 @@ class ClientController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"client"})
      * @Rest\Post("/client")
      */
     // create relation with one location
@@ -59,6 +60,7 @@ class ClientController extends Controller
     {
         $client = new Client();
         $location = new Location();
+        $basket = new Basket();
 
         $form = $this->createForm(ClientType::class, $client);
 
@@ -69,12 +71,18 @@ class ClientController extends Controller
                 ->setCodePostale(0)
                 ->setTel(0);
 
-        $client->setLocation($location);
+        $basket->setPrice(0)
+                ->setDelivry(0);
+
+        $client->addLocation($location);
+        $client->setBasketParent($basket);
+        $basket->setClientParent($client);
 
         if ($form->isValid()) {        
             $em = $this->get('doctrine.orm.entity_manager');
             $em->persist($client);
             $em->persist($location);
+            $em->persist($basket);
             $em->flush();
             return $client;
         } else {

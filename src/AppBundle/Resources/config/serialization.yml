@@ -62,3 +62,10 @@ AppBundle\Entity\Categorie:
         name:
             groups: ['categorie', 'article'] 
 
+AppBundle\Entity\Basket:
+    attributes:
+        price:
+            groups: ['client', 'basket'] 
+        delivry:
+            groups: ['client', 'basket'] 
+
