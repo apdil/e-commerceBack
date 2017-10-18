@@ -18,7 +18,7 @@ AppBundle\Entity\Client:
             groups: ['client', 'location']
         basket_parent:
             groups: ['client', 'location']  
-        location:
+        locations:
             groups: ['client']
 
 
@@ -34,7 +34,7 @@ AppBundle\Entity\Location:
             groups: ['client', 'location']
         tel:
             groups: ['client', 'location']
-        clients:
+        client:
             groups: ['location']
 
 

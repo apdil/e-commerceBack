@@ -297,40 +297,4 @@ class Client
     {
         return $this->basket_parent;
     }
-
-    /**
-     * Add location
-     *
-     * @param \AppBundle\Entity\Location $location
-     *
-     * @return Client
-     */
-    public function addLocation(\AppBundle\Entity\Location $location)
-    {
-        $location->setClient($this);
-
-        $this->locations[] = $location;
-
-        return $this;
-    }
-
-    /**
-     * Remove location
-     *
-     * @param \AppBundle\Entity\Location $location
-     */
-    public function removeLocation(\AppBundle\Entity\Location $location)
-    {
-        $this->locations->removeElement($location);
-    }
-
-    /**
-     * Get locations
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getLocations()
-    {
-        return $this->locations;
-    }
 }

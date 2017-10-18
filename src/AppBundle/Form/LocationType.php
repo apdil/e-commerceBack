@@ -10,19 +10,14 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 
 
 
-class ClientType extends AbstractType
+class LocationType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-        ->add('name')
-        ->add('mdp')
-        ->add('lastname')
-        ->add('email')
-        ->add('birthdate')->add('sex')->add('commandes')->add('basket_parent');
+        $builder->add('adress')->add('city')->add('codePostale')->add('tel');
     }
     
     /**
@@ -31,7 +26,7 @@ class ClientType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Client',
+            'data_class' => 'AppBundle\Entity\Location',
             'csrf_protection' => false
         ));
     }
@@ -41,7 +36,7 @@ class ClientType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_client';
+        return 'appbundle_location';
     }
 
 

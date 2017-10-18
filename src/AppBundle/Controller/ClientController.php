@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Location;
 use AppBundle\Form\ClientType;
+use AppBundle\Form\LocationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -53,6 +54,7 @@ class ClientController extends Controller
      * @Rest\View()
      * @Rest\Post("/client")
      */
+    // create relation with one location
     public function postClientAction(Request $request)
     {
         $client = new Client();
