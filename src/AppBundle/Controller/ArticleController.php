@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Article;
+use AppBundle\Entity\Categorie;
 use AppBundle\Form\ArticleType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
@@ -20,7 +21,7 @@ class ArticleController extends Controller
 {
 
     /**
-    * @Rest\View()
+    * @Rest\View(serializerGroups={"article"})
     * @Rest\Get("articles")
     */
     public function getArticlesAction()
@@ -29,15 +30,11 @@ class ArticleController extends Controller
 
         $articles = $em->getRepository('AppBundle:Article')->findAll();
 
-        if (empty($articles)) {
-            return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
-        }
-
         return $articles;
     }
 
     /**
-    * @Rest\View()
+    * @Rest\View(serializerGroups={"article"})
     * @Rest\Get("article/{id}")
     */
     public function getArticleAction($id)
@@ -47,26 +44,28 @@ class ArticleController extends Controller
         $article = $em->getRepository('AppBundle:Article')->find($id);
 
         if (empty($article)) {
-            return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
         return $article;
     }
 
     /**
-    * @Rest\View(statusCode=Response::HTTP_CREATED)
+    * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"article"})
     * @Rest\Post("articles")
     */
     public function postArticleAction(Request $request)
     {
+
+        $em = $this->getDoctrine()->getManager();
+
         $article = new Article();
-
+        
         $form = $this->createForm(ArticleType::class, $article);
-
+        
         $form->submit($request->request->all()); // Validation des données
-
+        
         if ($form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
             $em->persist($article);
             $em->flush();
             return $article;
@@ -76,7 +75,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"article"})
      * @Rest\Patch("article/{id}")
      */
 
@@ -86,7 +85,7 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"article"})
      * @Rest\Put("article/{id}")
      */
     public function putArticleAction($id, Request $request){
@@ -101,7 +100,7 @@ class ArticleController extends Controller
         $article = $em->getRepository('AppBundle:Article')->find($id);
 
         if (empty($article)) {
-            return new JsonResponse(['message' => 'User not found'], Response::HTTP_NOT_FOUND);
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
         $form = $this->createForm(ArticleType::class, $article);
@@ -126,9 +125,18 @@ class ArticleController extends Controller
         $em = $this->getDoctrine()->getManager();
         $article = $em->getRepository('AppBundle:Article')->find($id);
 
+        if (empty($article)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
+
         if($article){
             $em->remove($article);
             $em->flush();
         }
     }
+
+    /**
+     * @Rest\View()
+     * @Rest\Get("article/{id}/categorie/{categorie_id}")
+     */
 }

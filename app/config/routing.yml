@@ -1,3 +1,7 @@
+app_categorie:
+    resource: "@AppBundle/Controller/CategorieController.php"
+    type:     annotation
+
 app:
     resource: '@AppBundle/Controller/DefaultController.php'
     type: annotation
@@ -7,3 +11,6 @@ article:
 client:
     type:     rest
     resource: AppBundle\Controller\ClientController
+categorie:
+    type:     rest
+    resource: AppBundle\Controller\CategorieController

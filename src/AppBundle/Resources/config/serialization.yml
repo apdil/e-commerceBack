@@ -36,3 +36,29 @@ AppBundle\Entity\Location:
             groups: ['client', 'location']
         clients:
             groups: ['location']
+
+
+AppBundle\Entity\Article:
+    attributes:
+        id:
+            groups: ['article', 'categorie']
+        name:
+            groups: ['article', 'categorie']
+        description:
+            groups: ['article', 'categorie']
+        price:
+            groups: ['article', 'categorie']
+        img:
+            groups: ['article', 'categorie']
+        marque:
+            groups: ['article', 'categorie']
+        categories:
+            groups: ['article', 'categorie']
+        basket:
+            groups: ['article']  
+
+AppBundle\Entity\Categorie:
+    attributes:
+        name:
+            groups: ['categorie', 'article'] 
+

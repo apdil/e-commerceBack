@@ -29,10 +29,6 @@ class ClientController extends Controller
 
         $clients = $em->getRepository('AppBundle:Client')->findAll();
 
-        if (empty($clients)) {
-            return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
-        }
-
         return $clients;
     }
 
@@ -47,7 +43,7 @@ class ClientController extends Controller
         $client = $em->getRepository('AppBundle:Client')->find($id);
 
         if (empty($client)) {
-            return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
         return $client;
@@ -89,7 +85,7 @@ class ClientController extends Controller
      * @Rest\Put("/client/{id}")
      */
     public function putClientAction($id, Request $request){
-        return $this->updateClientAction($id, $request, true);
+        return $this->updateClient($id, $request, true);
     }
 
     /**
@@ -97,17 +93,17 @@ class ClientController extends Controller
      * @Rest\Patch("/client/{id}")
      */
     public function patchClientAction($id, Request $request){
-        return $this->updateClientAction($id, $request, false);
+        return $this->updateClient($id, $request, false);
     }
     
-    
-    private function updateClientAction($id, Request $request, $clearMissing){
+
+    private function updateClient($id, Request $request, $clearMissing){
 
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('AppBundle:Client')->find($id);
 
         if (empty($client)) {
-            return new JsonResponse(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
         $form = $this->createForm(ClientType::class, $client);
@@ -131,6 +127,10 @@ class ClientController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('AppBundle:Client')->find($id);
+
+        if (empty($client)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
 
         $location = $client->getLocation();
 
