@@ -76,10 +76,10 @@ class Client
     private $locations;
 
     /**
-     * @ORM\OneToOne(targetEntity="Basket")
+     * @ORM\OneToOne(targetEntity="Basket", mappedBy="client_parent")
      * @ORM\JoinColumn(name="basket_id", referencedColumnName="id")
      */
-    private $basket_parent;    
+    private $basket_parent;
 
     public function __construct() {
         $this->commandes = new ArrayCollection();
@@ -275,26 +275,38 @@ class Client
     }
 
     /**
-     * Set basketParent
+     * Add location
      *
-     * @param \AppBundle\Entity\Basket $basketParent
+     * @param \AppBundle\Entity\Location $location
      *
      * @return Client
      */
-    public function setBasketParent(\AppBundle\Entity\Basket $basketParent = null)
+    public function addLocation(\AppBundle\Entity\Location $location)
     {
-        $this->basket_parent = $basketParent;
+        $location->setClient($this);
+
+        $this->locations[] = $location;
 
         return $this;
     }
 
     /**
-     * Get basketParent
+     * Remove location
      *
-     * @return \AppBundle\Entity\Basket
+     * @param \AppBundle\Entity\Location $location
      */
-    public function getBasketParent()
+    public function removeLocation(\AppBundle\Entity\Location $location)
     {
-        return $this->basket_parent;
+        $this->locations->removeElement($location);
+    }
+
+    /**
+     * Get locations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getLocations()
+    {
+        return $this->locations;
     }
 }

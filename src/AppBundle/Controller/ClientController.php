@@ -150,4 +150,41 @@ class ClientController extends Controller
             $em->flush();
         }
     }
+    
+    /**
+     * @Rest\View(serializerGroups={"client"})
+     * @Rest\Get("/client/{client_id}/basket/article/{article_id}")
+     */
+    public function getBasketArticleAction($client_id, $article_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AppBundle:Client')->find($client_id);
+        $article = $em->getRepository('AppBundle:Article')->find($article_id);
+        $basket = $client->getBasketParent();
+
+        $basket->addArticle($article);
+        $article->addBasket($basket);
+
+        $em->flush();
+
+        return $basket->getArticles();
+    }
+
+    /**
+     * @Rest\View(serializerGroups={"client"})
+     * @Rest\Delete("/client/{client_id}/basket/article/{article_id}")
+     */
+    public function deleteBasketArticleAction($client_id, $article_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AppBundle:Client')->find($client_id);
+        $article = $em->getRepository('AppBundle:Article')->find($article_id);
+        $basket = $client->getBasketParent();
+
+        $basket->removeArticle($article);
+        $article->removeBasket($basket);
+        $em->flush();
+
+        return $basket->getArticles();
+    }
 }

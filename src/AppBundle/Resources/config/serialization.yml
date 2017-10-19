@@ -41,26 +41,26 @@ AppBundle\Entity\Location:
 AppBundle\Entity\Article:
     attributes:
         id:
-            groups: ['article', 'categorie']
+            groups: ['article', 'categorie', 'client']
         name:
-            groups: ['article', 'categorie']
+            groups: ['article', 'categorie', 'client']
         description:
-            groups: ['article', 'categorie']
+            groups: ['article', 'categorie', 'client']
         price:
-            groups: ['article', 'categorie']
+            groups: ['article', 'categorie', 'client']
         img:
-            groups: ['article', 'categorie']
+            groups: ['article', 'categorie', 'client']
         marque:
-            groups: ['article', 'categorie']
+            groups: ['article', 'categorie', 'client']
         categories:
-            groups: ['article', 'categorie']
+            groups: ['article', 'categorie', 'client']
         basket:
             groups: ['article']  
 
 AppBundle\Entity\Categorie:
     attributes:
         name:
-            groups: ['categorie', 'article'] 
+            groups: ['categorie', 'article', 'client'] 
 
 AppBundle\Entity\Basket:
     attributes:

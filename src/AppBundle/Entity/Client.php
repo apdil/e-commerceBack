@@ -76,7 +76,7 @@ class Client
     private $locations;
 
     /**
-     * @ORM\OneToOne(targetEntity="Basket")
+     * @ORM\OneToOne(targetEntity="Basket", mappedBy="client_parent")
      * @ORM\JoinColumn(name="basket_id", referencedColumnName="id")
      */
     private $basket_parent;
@@ -275,30 +275,6 @@ class Client
     }
 
     /**
-     * Set basketParent
-     *
-     * @param \AppBundle\Entity\Basket $basketParent
-     *
-     * @return Client
-     */
-    public function setBasketParent(\AppBundle\Entity\Basket $basketParent = null)
-    {
-        $this->basket_parent = $basketParent;
-
-        return $this;
-    }
-
-    /**
-     * Get basketParent
-     *
-     * @return \AppBundle\Entity\Basket
-     */
-    public function getBasketParent()
-    {
-        return $this->basket_parent;
-    }
-
-    /**
      * Add location
      *
      * @param \AppBundle\Entity\Location $location
@@ -332,5 +308,29 @@ class Client
     public function getLocations()
     {
         return $this->locations;
+    }
+
+    /**
+     * Set basketParent
+     *
+     * @param \AppBundle\Entity\Basket $basketParent
+     *
+     * @return Client
+     */
+    public function setBasketParent(\AppBundle\Entity\Basket $basketParent = null)
+    {
+        $this->basket_parent = $basketParent;
+
+        return $this;
+    }
+
+    /**
+     * Get basketParent
+     *
+     * @return \AppBundle\Entity\Basket
+     */
+    public function getBasketParent()
+    {
+        return $this->basket_parent;
     }
 }

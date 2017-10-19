@@ -153,6 +153,17 @@ class Basket
     }
 
     /**
+     * Get basket
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getBasket()
+    {
+        return $this->basket;
+    }
+
+
+    /**
      * Set commandeParent
      *
      * @param \AppBundle\Entity\Commande $commandeParent
