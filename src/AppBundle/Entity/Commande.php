@@ -30,16 +30,16 @@ class Commande
     private $preparateur;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Client", inversedBy="commandes", cascade={"persist"})
-    * @ORM\JoinTable(name="commande_client")
+    * @ORM\ManyToOne(targetEntity="Client", inversedBy="commandes", cascade={"persist"})
+    * @ORM\joinColumn(name="clientCommande_id", referencedColumnName="id")
     */
     private $client;
 
     /**
-     * @ORM\OneToOne(targetEntity="Basket")
-     * @ORM\JoinColumn(name="basket_id", referencedColumnName="id")
-     */
-    private $basket_parent; 
+    * @ORM\ManyToMany(targetEntity="Article", inversedBy="commandes", cascade={"persist"})
+    * @ORM\JoinTable(name="commandes_articles")
+    */
+    private $articles;
 
     public function __construct(){
         $this->preparateur = new ArrayCollection();
@@ -91,61 +91,62 @@ class Commande
         return $this->preparateur;
     }
 
+
     /**
-     * Add client
+     * Add article
      *
-     * @param \AppBundle\Entity\Client $client
+     * @param \AppBundle\Entity\Article $article
      *
      * @return Commande
      */
-    public function addClient(\AppBundle\Entity\Client $client)
+    public function addArticle(\AppBundle\Entity\Article $article)
     {
-        $this->client[] = $client;
+        $this->articles[] = $article;
 
         return $this;
     }
 
     /**
-     * Remove client
+     * Remove article
+     *
+     * @param \AppBundle\Entity\Article $article
+     */
+    public function removeArticle(\AppBundle\Entity\Article $article)
+    {
+        $this->articles->removeElement($article);
+    }
+
+    /**
+     * Get articles
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getArticles()
+    {
+        return $this->articles;
+    }
+
+    /**
+     * Set client
      *
      * @param \AppBundle\Entity\Client $client
+     *
+     * @return Commande
      */
-    public function removeClient(\AppBundle\Entity\Client $client)
+    public function setClient(\AppBundle\Entity\Client $client = null)
     {
-        $this->client->removeElement($client);
+        $this->client = $client;
+
+        return $this;
     }
 
     /**
      * Get client
      *
-     * @return \Doctrine\Common\Collections\Collection
+     * @return \AppBundle\Entity\Client
      */
     public function getClient()
     {
         return $this->client;
-    }
-
-    /**
-     * Set basketParent
-     *
-     * @param \AppBundle\Entity\Basket $basketParent
-     *
-     * @return Commande
-     */
-    public function setBasketParent(\AppBundle\Entity\Basket $basketParent = null)
-    {
-        $this->basket_parent = $basketParent;
-
-        return $this;
-    }
-
-    /**
-     * Get basketParent
-     *
-     * @return \AppBundle\Entity\Basket
-     */
-    public function getBasketParent()
-    {
-        return $this->basket_parent;
     }
 }

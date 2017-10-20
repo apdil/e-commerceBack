@@ -1,23 +1,23 @@
 AppBundle\Entity\Client:
     attributes:
         id:
-            groups: ['client', 'location']
+            groups: ['client', 'location', 'commande', 'basket']
         name:
-            groups: ['client', 'location']
+            groups: ['client', 'location', 'commande', 'basket']
         mdp:
-            groups: ['client', 'location']
+            groups: ['client', 'location', 'commande', 'basket']
         lastname:
-            groups: ['client', 'location']
+            groups: ['client', 'location', 'commande', 'basket']
         email:
-            groups: ['client', 'location']
+            groups: ['client', 'location', 'commande', 'basket']
         birthdate:
-            groups: ['client', 'location']  
+            groups: ['client', 'location', 'commande', 'basket']  
         sex:
-            groups: ['client', 'location']
+            groups: ['client', 'location', 'commande', 'basket']
         commandes:
-            groups: ['client', 'location']
+            groups: ['client', 'location', 'commande', 'basket']
         basket_parent:
-            groups: ['client', 'location']  
+            groups: ['client', 'location', 'commande', 'basket']  
         locations:
             groups: ['client']
 
@@ -41,31 +41,35 @@ AppBundle\Entity\Location:
 AppBundle\Entity\Article:
     attributes:
         id:
-            groups: ['article', 'categorie', 'client']
+            groups: ['article', 'categorie', 'client', 'commande', 'basket']
         name:
-            groups: ['article', 'categorie', 'client']
+            groups: ['article', 'categorie', 'client', 'commande', 'basket']
         description:
-            groups: ['article', 'categorie', 'client']
+            groups: ['article', 'categorie', 'client', 'commande', 'basket']
         price:
-            groups: ['article', 'categorie', 'client']
+            groups: ['article', 'categorie', 'client', 'commande', 'basket']
         img:
-            groups: ['article', 'categorie', 'client']
+            groups: ['article', 'categorie', 'client', 'commande', 'basket']
         marque:
-            groups: ['article', 'categorie', 'client']
+            groups: ['article', 'categorie', 'client', 'commande', 'basket']
         categories:
-            groups: ['article', 'categorie', 'client']
+            groups: ['article', 'categorie', 'client', 'commande', 'basket']
         basket:
             groups: ['article']  
 
 AppBundle\Entity\Categorie:
     attributes:
         name:
-            groups: ['categorie', 'article', 'client'] 
+            groups: ['categorie', 'article', 'client', 'commande'] 
 
 AppBundle\Entity\Basket:
     attributes:
         price:
-            groups: ['client', 'basket'] 
+            groups: ['client', 'basket', 'commande'] 
         delivry:
-            groups: ['client', 'basket'] 
+            groups: ['client', 'basket', 'commande'] 
 
+AppBundle\Entity\Commande:
+    attributes:
+        id:
+            groups: ['client', 'article'] 

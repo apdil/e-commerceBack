@@ -66,7 +66,7 @@ class Client
     private $sex;
 
     /**
-    * @ORM\ManyToMany(targetEntity="Commande", mappedBy="client")
+    * @ORM\OneToMany(targetEntity="Commande", mappedBy="client")
     */
     private $commandes;
 
@@ -80,10 +80,6 @@ class Client
      * @ORM\JoinColumn(name="basket_id", referencedColumnName="id")
      */
     private $basket_parent;
-
-    public function __construct() {
-        $this->commandes = new ArrayCollection();
-    }
 
 
     /**
@@ -241,40 +237,6 @@ class Client
     }
 
     /**
-     * Add commande
-     *
-     * @param \AppBundle\Entity\Commande $commande
-     *
-     * @return Client
-     */
-    public function addCommande(\AppBundle\Entity\Commande $commande)
-    {
-        $this->commandes[] = $commande;
-
-        return $this;
-    }
-
-    /**
-     * Remove commande
-     *
-     * @param \AppBundle\Entity\Commande $commande
-     */
-    public function removeCommande(\AppBundle\Entity\Commande $commande)
-    {
-        $this->commandes->removeElement($commande);
-    }
-
-    /**
-     * Get commandes
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getCommandes()
-    {
-        return $this->commandes;
-    }
-
-    /**
      * Add location
      *
      * @param \AppBundle\Entity\Location $location
@@ -332,5 +294,47 @@ class Client
     public function getBasketParent()
     {
         return $this->basket_parent;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->commandes = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->locations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add commande
+     *
+     * @param \AppBundle\Entity\Commande $commande
+     *
+     * @return Client
+     */
+    public function addCommande(\AppBundle\Entity\Commande $commande)
+    {
+        $this->commandes[] = $commande;
+
+        return $this;
+    }
+
+    /**
+     * Remove commande
+     *
+     * @param \AppBundle\Entity\Commande $commande
+     */
+    public function removeCommande(\AppBundle\Entity\Commande $commande)
+    {
+        $this->commandes->removeElement($commande);
+    }
+
+    /**
+     * Get commandes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommandes()
+    {
+        return $this->commandes;
     }
 }

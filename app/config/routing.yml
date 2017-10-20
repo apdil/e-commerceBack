@@ -1,3 +1,11 @@
+app_basket:
+    resource: "@AppBundle/Controller/BasketController.php"
+    type:     annotation
+
+app_commande:
+    resource: "@AppBundle/Controller/CommandeController.php"
+    type:     annotation
+
 app_location:
     resource: "@AppBundle/Controller/LocationController.php"
     type:     annotation
@@ -21,3 +29,9 @@ categorie:
 location:
     type:     rest
     resource: AppBundle\Controller\LocationController
+commande:
+    type:     rest
+    resource: AppBundle\Controller\CommandeController
+basket:
+    type:     rest
+    resource: AppBundle\Controller\BasketController

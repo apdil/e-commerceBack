@@ -69,9 +69,15 @@ class Article
     */
     private $basket;
 
+    /**
+    * @ORM\ManyToMany(targetEntity="Commande", mappedBy="articles")
+    */
+    private $commandes;
+
     public function __construct(){
         $this->categories = new ArrayCollection();
         $this->basket = new ArrayCollection();
+        $this->commandes = new ArrayCollection();
     }
 
     /**
@@ -270,5 +276,39 @@ class Article
     public function getBasket()
     {
         return $this->basket;
+    }
+
+    /**
+     * Add commande
+     *
+     * @param \AppBundle\Entity\Commande $commande
+     *
+     * @return Article
+     */
+    public function addCommande(\AppBundle\Entity\Commande $commande)
+    {
+        $this->commandes[] = $commande;
+
+        return $this;
+    }
+
+    /**
+     * Remove commande
+     *
+     * @param \AppBundle\Entity\Commande $commande
+     */
+    public function removeCommande(\AppBundle\Entity\Commande $commande)
+    {
+        $this->commandes->removeElement($commande);
+    }
+
+    /**
+     * Get commandes
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCommandes()
+    {
+        return $this->commandes;
     }
 }

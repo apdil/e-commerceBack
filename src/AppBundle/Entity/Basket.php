@@ -47,12 +47,6 @@ class Basket
      * @ORM\JoinColumn(name="client_id", referencedColumnName="id")
      */
     private $client_parent;
-
-    /**
-     * @ORM\OneToOne(targetEntity="Commande", mappedBy="basket_parent")
-     * @ORM\JoinColumn(name="commande_id", referencedColumnName="id")
-     */
-    private $commande_parent; 
     
     public function __construct() {
         $this->articles = new ArrayCollection();
@@ -152,29 +146,7 @@ class Basket
         return $this->articles;
     }
 
-    /**
-     * Set commandeParent
-     *
-     * @param \AppBundle\Entity\Commande $commandeParent
-     *
-     * @return Basket
-     */
-    public function setCommandeParent(\AppBundle\Entity\Commande $commandeParent = null)
-    {
-        $this->commande_parent = $commandeParent;
 
-        return $this;
-    }
-
-    /**
-     * Get commandeParent
-     *
-     * @return \AppBundle\Entity\Commande
-     */
-    public function getCommandeParent()
-    {
-        return $this->commande_parent;
-    }
 
     /**
      * Set clientParent
