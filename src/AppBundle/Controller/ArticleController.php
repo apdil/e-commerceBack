@@ -134,9 +134,4 @@ class ArticleController extends Controller
             $em->flush();
         }
     }
-
-    /**
-     * @Rest\View()
-     * @Rest\Get("article/{id}/categorie/{categorie_id}")
-     */
 }

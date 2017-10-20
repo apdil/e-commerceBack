@@ -18,16 +18,29 @@ use FOS\RestBundle\View\View;
 class BasketController extends Controller
 {
     /**
-     * @Rest\View()
-     * @Rest\Get("baskets")
+     * @Rest\View(serializerGroups={"basket"})
+     * @Rest\Get("/baskets")
      */
-    public function getAction()
+    public function getAllAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $baskets = $em->getRepository('AppBundle:Basket')->findAll();
 
         return $baskets;
+    }
+
+    /**
+     * @Rest\View(serializerGroups={"basket"})
+     * @Rest\Get("/baskets/{id}")
+     */
+    public function getBasketAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $basket = $em->getRepository('AppBundle:Basket')->find($id);
+
+        return $basket;
     }
 
 }

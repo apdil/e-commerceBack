@@ -15,9 +15,9 @@ AppBundle\Entity\Client:
         sex:
             groups: ['client', 'location', 'commande', 'basket', 'article']
         commandes:
-            groups: ['client', 'location', 'basket']
+            groups: ['client', 'location']
         basket_parent:
-            groups: ['client', 'location', 'basket']
+            groups: ['client', 'location']
         locations:
             groups: ['client']
 
@@ -60,7 +60,7 @@ AppBundle\Entity\Article:
 AppBundle\Entity\Categorie:
     attributes:
         name:
-            groups: ['categorie', 'article', 'client', 'commande'] 
+            groups: ['categorie', 'article', 'client', 'commande', 'basket'] 
 
 AppBundle\Entity\Basket:
     attributes:
