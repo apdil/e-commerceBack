@@ -17,12 +17,7 @@ class BasketType extends AbstractType
     {
         $builder->add('price')
                 ->add('delivry')
-                ->add('articles', EntityType::class, array(
-                    'class' => 'AppBundle:Article',
-                    'choice_label' => 'name',
-                    'multiple' => true,
-                    // 'expanded' => true,
-                ))
+                ->add('articles')
                 ->add('client_parent')
                 ->add('commande_parent');
     }

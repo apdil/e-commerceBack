@@ -18,10 +18,10 @@ use FOS\RestBundle\View\View;
 class BasketController extends Controller
 {
     /**
-     * @Rest\View(serializerGroups={"basket"})
-     * @Rest\Get("/basket/{id}")
+     * @Rest\View()
+     * @Rest\Get("baskets")
      */
-    public function getAction($id)
+    public function getAction()
     {
         $em = $this->getDoctrine()->getManager();
 

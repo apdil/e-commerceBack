@@ -28,7 +28,7 @@ class Commande
      *
      * @ORM\Column(name="treatment", type="boolean")
      */
-    private $treatment = false;
+    private $treatment;
 
     /**
     * @ORM\ManyToMany(targetEntity="Preparateur", inversedBy="commandes", cascade={"persist"})
@@ -155,29 +155,5 @@ class Commande
     public function getClient()
     {
         return $this->client;
-    }
-
-    /**
-     * Set treatment
-     *
-     * @param boolean $treatment
-     *
-     * @return Commande
-     */
-    public function setTreatment($treatment)
-    {
-        $this->treatment = $treatment;
-
-        return $this;
-    }
-
-    /**
-     * Get treatment
-     *
-     * @return boolean
-     */
-    public function getTreatment()
-    {
-        return $this->treatment;
     }
 }

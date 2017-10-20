@@ -5,24 +5,15 @@ namespace AppBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-
-class CommandeType extends AbstractType
+class PreparateurType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('preparateur')
-                ->add('client')
-                ->add('articles', EntityType::class, array(
-                    'class' => 'AppBundle:Article',
-                    'choice_label' => 'name',
-                    'multiple' => true
-                    // 'expanded' => true,
-                ));
+        $builder->add('name')->add('mdp')->add('commandes');
     }
     
     /**
@@ -31,7 +22,7 @@ class CommandeType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'AppBundle\Entity\Commande',
+            'data_class' => 'AppBundle\Entity\Preparateur',
             'csrf_protection' => false
         ));
     }
@@ -41,7 +32,7 @@ class CommandeType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'appbundle_commande';
+        return 'appbundle_preparateur';
     }
 
 

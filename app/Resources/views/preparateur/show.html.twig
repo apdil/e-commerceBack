@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Preparateur</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ preparateur.id }}</td>
+            </tr>
+            <tr>
+                <th>Name</th>
+                <td>{{ preparateur.name }}</td>
+            </tr>
+            <tr>
+                <th>Mdp</th>
+                <td>{{ preparateur.mdp }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('preparateur_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('preparateur_edit', { 'id': preparateur.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

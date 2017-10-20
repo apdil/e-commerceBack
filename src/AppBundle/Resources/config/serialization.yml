@@ -1,23 +1,23 @@
 AppBundle\Entity\Client:
     attributes:
         id:
-            groups: ['client', 'location', 'commande', 'basket']
+            groups: ['client', 'location', 'commande', 'basket', 'article']
         name:
-            groups: ['client', 'location', 'commande', 'basket']
+            groups: ['client', 'location', 'commande', 'basket', 'article']
         mdp:
-            groups: ['client', 'location', 'commande', 'basket']
+            groups: ['client', 'location', 'commande', 'basket', 'article']
         lastname:
-            groups: ['client', 'location', 'commande', 'basket']
+            groups: ['client', 'location', 'commande', 'basket', 'article']
         email:
-            groups: ['client', 'location', 'commande', 'basket']
+            groups: ['client', 'location', 'commande', 'basket', 'article']
         birthdate:
-            groups: ['client', 'location', 'commande', 'basket']  
+            groups: ['client', 'location', 'commande', 'basket', 'article']  
         sex:
-            groups: ['client', 'location', 'commande', 'basket']
+            groups: ['client', 'location', 'commande', 'basket', 'article']
         commandes:
-            groups: ['client', 'location', 'commande', 'basket']
+            groups: ['client', 'location', 'basket']
         basket_parent:
-            groups: ['client', 'location', 'commande', 'basket']  
+            groups: ['client', 'location', 'basket']
         locations:
             groups: ['client']
 
@@ -64,12 +64,24 @@ AppBundle\Entity\Categorie:
 
 AppBundle\Entity\Basket:
     attributes:
+        id:
+            groups: ['client', 'basket', 'commande', 'article']
         price:
-            groups: ['client', 'basket', 'commande'] 
+            groups: ['client', 'basket', 'commande', 'article'] 
         delivry:
-            groups: ['client', 'basket', 'commande'] 
+            groups: ['client', 'basket', 'commande', 'article']
+        articles:
+            groups: ['client', 'basket', 'commande']
+        client_parent:
+            groups: ['basket', 'commande', 'article'] 
 
 AppBundle\Entity\Commande:
     attributes:
         id:
-            groups: ['client', 'article'] 
+            groups: ['client', 'article', 'commande']
+        client:
+            groups: ['commande']
+        articles:
+            groups: ['commande', 'client']
+        treatment:
+            groups: ['commande', 'client']
