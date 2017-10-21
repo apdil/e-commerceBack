@@ -28,14 +28,14 @@ class Basket
      *
      * @ORM\Column(name="price", type="integer")
      */
-    private $price;
+    private $price = 0;
 
     /**
      * @var string
      *
      * @ORM\Column(name="delivry", type="string", length=255)
      */
-    private $delivry;
+    private $delivry = "";
 
     /**
     * @ORM\ManyToMany(targetEntity="Article", mappedBy="basket")

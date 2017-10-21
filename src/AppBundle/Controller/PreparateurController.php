@@ -20,7 +20,7 @@ class PreparateurController extends Controller
 {
     /**
      * @Rest\View(serializerGroups={"preparateur"})
-     * @Rest\Get("/preparateur")
+     * @Rest\Get("/preparateurs")
      */
     public function getAllAction()
     {
@@ -41,11 +41,16 @@ class PreparateurController extends Controller
 
         $preparateur = $em->getRepository('AppBundle:Preparateur')->find($id);
 
+        if (empty($preparateur)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
+
         return $preparateur;
     }
 
     /**
      * create preparateur
+     * 
      * @Rest\View(serializerGroups={"preparateur"})
      * @Rest\Post("/preparateur")
      */
@@ -68,6 +73,8 @@ class PreparateurController extends Controller
     }
 
     /**
+     * preparateur s'occupe de la commande
+     * 
      * @Rest\View(serializerGroups={"preparateur"})
      * @Rest\Get("/preparateur/{preparateur_id}/commande/{commande_id}")
      */
@@ -77,6 +84,10 @@ class PreparateurController extends Controller
 
         $preparateur = $em->getRepository('AppBundle:Preparateur')->find($preparateur_id);
         $commande = $em->getRepository('AppBundle:Commande')->find($commande_id);
+
+        if (empty($preparateur) || empty($commande)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
 
         $preparateur->addCommande($commande);
         $commande->addPreparateur($preparateur);
@@ -89,21 +100,27 @@ class PreparateurController extends Controller
     }
 
     /**
+     * preparateur signal que la commande est en livraison
+     * 
      * @Rest\View(serializerGroups={"preparateur"})
      * @Rest\Get("/preparateur/{preparateur_id}/commande/{commande_id}/delivred")
      */
     public function getDelivredAction($preparateur_id, $commande_id){
         
-                $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         
-                $preparateur = $em->getRepository('AppBundle:Preparateur')->find($preparateur_id);
-                $commande = $em->getRepository('AppBundle:Commande')->find($commande_id);
+        $preparateur = $em->getRepository('AppBundle:Preparateur')->find($preparateur_id);
+        $commande = $em->getRepository('AppBundle:Commande')->find($commande_id);
+
+        if (empty($preparateur) || empty($commande)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
         
-                $commande->setInDelivring(true);
+        $commande->setInDelivring(true);
         
-                $em->flush();
+        $em->flush();
         
-                return $preparateur;
+        return $preparateur;
         
-            }
+    }
 }

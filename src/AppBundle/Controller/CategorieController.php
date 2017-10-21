@@ -18,26 +18,12 @@ use FOS\RestBundle\View\View;
 
 class CategorieController extends Controller
 {
+
     /**
+     * return articles by categorie
+     * 
      * @Rest\View(serializerGroups={"categorie"})
-     * @Rest\Get("article/{id}/categories")
-     */
-    public function getCategoriesAction($id){
-        
-        $em = $this->getDoctrine()->getManager();
-        $article = $em->getRepository('AppBundle:Article')->find($id);
-
-        if (empty($article)) {
-            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
-        }
-
-        return $article->getCategories();
-    }
-
-    //filter articles by categories
-    /**
-     * @Rest\View(serializerGroups={"categorie"})
-     * @Rest\Get("articles/categorie/{id}")
+     * @Rest\Get("categorie/{id}/articles")
      */
     public function getArticlesCategorieAction($id){
         
@@ -48,6 +34,6 @@ class CategorieController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
-        return $categorie->getArticles();
+        return $categorie;
     }
 }

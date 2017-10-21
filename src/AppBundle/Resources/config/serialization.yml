@@ -53,7 +53,7 @@ AppBundle\Entity\Article:
         marque:
             groups: ['article', 'categorie', 'client', 'commande', 'basket', 'preparateur']
         categories:
-            groups: ['article', 'categorie', 'client', 'commande', 'basket', 'preparateur']
+            groups: ['article', 'client', 'commande', 'basket', 'preparateur']
         basket:
             groups: ['article']  
 
@@ -61,6 +61,8 @@ AppBundle\Entity\Categorie:
     attributes:
         name:
             groups: ['categorie', 'article', 'client', 'commande', 'basket', 'preparateur'] 
+        articles:
+            groups: ['categorie'] 
 
 AppBundle\Entity\Basket:
     attributes:
@@ -88,7 +90,7 @@ AppBundle\Entity\Commande:
         treatment:
             groups: ['commande', 'client', 'preparateur']
         inDelivring:
-            groups: ['commande', 'preparateur']
+            groups: ['commande', 'client', 'preparateur']
 
 AppBundle\Entity\Preparateur:
     attributes:

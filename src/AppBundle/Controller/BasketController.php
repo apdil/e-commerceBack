@@ -21,7 +21,7 @@ class BasketController extends Controller
      * @Rest\View(serializerGroups={"basket"})
      * @Rest\Get("/baskets")
      */
-    public function getAllAction()
+    public function getBasketsAction()
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -32,7 +32,7 @@ class BasketController extends Controller
 
     /**
      * @Rest\View(serializerGroups={"basket"})
-     * @Rest\Get("/baskets/{id}")
+     * @Rest\Get("/basket/{id}")
      */
     public function getBasketAction($id)
     {

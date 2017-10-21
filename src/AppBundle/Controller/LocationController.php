@@ -44,9 +44,9 @@ class LocationController extends Controller
         return $location;
     }
 
-    // add other location to client
     /**
-     * @Rest\View(serializerGroups={"location"})
+     * add more location to client
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"location"})
      * @Rest\Post("/location/client/{client_id}")
      */
     public function postLocationAction(Request $request, $client_id)

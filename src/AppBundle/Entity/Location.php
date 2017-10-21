@@ -26,28 +26,28 @@ class Location
      *
      * @ORM\Column(name="adress", type="string", length=255)
      */
-    private $adress;
+    private $adress = "";
 
     /**
      * @var string
      *
      * @ORM\Column(name="city", type="string", length=255)
      */
-    private $city;
+    private $city = "";
 
     /**
      * @var int
      *
      * @ORM\Column(name="codePostale", type="integer")
      */
-    private $codePostale;
+    private $codePostale = 00000;
 
     /**
      * @var int
      *
      * @ORM\Column(name="tel", type="integer")
      */
-    private $tel;
+    private $tel = 0000000000;
 
     /**
     * @ORM\ManyToOne(targetEntity="Client", inversedBy="locations")
