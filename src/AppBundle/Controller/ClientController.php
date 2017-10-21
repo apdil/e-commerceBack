@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Client;
 use AppBundle\Entity\Location;
 use AppBundle\Entity\Basket;
+use AppBundle\Entity\Commande;
 use AppBundle\Form\ClientType;
 use AppBundle\Form\LocationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -22,6 +23,8 @@ use FOS\RestBundle\View\View;
 class ClientController extends Controller
 {
     /**
+     * get all client
+     * 
      * @Rest\View(serializerGroups={"client"})
      * @Rest\Get("/clients")
      */
@@ -35,6 +38,8 @@ class ClientController extends Controller
     }
 
     /**
+     * get one client
+     * 
      * @Rest\View(serializerGroups={"client"})
      * @Rest\Get("/client/{id}")
      */
@@ -52,10 +57,9 @@ class ClientController extends Controller
     }
 
     /**
-     * @Rest\View(serializerGroups={"client"})
+     * @Rest\View(statusCode=Response::HTTP_CREATED, serializerGroups={"client"})
      * @Rest\Post("/client")
      */
-    // create relation with one location
     public function postClientAction(Request $request)
     {
         $client = new Client();
@@ -65,14 +69,6 @@ class ClientController extends Controller
         $form = $this->createForm(ClientType::class, $client);
 
         $form->submit($request->request->all()); // Validation des données
-
-        $location->setAdress(0)
-                ->setCity(0)
-                ->setCodePostale(0)
-                ->setTel(0);
-
-        $basket->setPrice(0)
-                ->setDelivry(0);
 
         $client->addLocation($location);
         $client->setBasketParent($basket);
@@ -91,6 +87,8 @@ class ClientController extends Controller
     }
 
     /**
+     * update all properties
+     * 
      * @Rest\View(serializerGroups={"client"})
      * @Rest\Put("/client/{id}")
      */
@@ -99,6 +97,8 @@ class ClientController extends Controller
     }
 
     /**
+     * update some properties
+     * 
      * @Rest\View(serializerGroups={"client"})
      * @Rest\Patch("/client/{id}")
      */
@@ -152,6 +152,8 @@ class ClientController extends Controller
     }
     
     /**
+     * add article in basket of client
+     * 
      * @Rest\View(serializerGroups={"client"})
      * @Rest\Get("/client/{client_id}/basket/article/{article_id}")
      */
@@ -160,6 +162,11 @@ class ClientController extends Controller
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('AppBundle:Client')->find($client_id);
         $article = $em->getRepository('AppBundle:Article')->find($article_id);
+
+        if (empty($client) || empty($article)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
+
         $basket = $client->getBasketParent();
 
         $basket->addArticle($article);
@@ -167,11 +174,13 @@ class ClientController extends Controller
 
         $em->flush();
 
-        return $basket->getArticles();
+        return $client;
     }
 
     /**
-     * @Rest\View(serializerGroups={"client"})
+     * delete article of basket of client
+     * 
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT, serializerGroups={"client"})
      * @Rest\Delete("/client/{client_id}/basket/article/{article_id}")
      */
     public function deleteBasketArticleAction($client_id, $article_id)
@@ -179,12 +188,51 @@ class ClientController extends Controller
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('AppBundle:Client')->find($client_id);
         $article = $em->getRepository('AppBundle:Article')->find($article_id);
+
+        if (empty($client) || empty($article)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
+        }
+
         $basket = $client->getBasketParent();
 
         $basket->removeArticle($article);
         $article->removeBasket($basket);
         $em->flush();
 
-        return $basket->getArticles();
+        return $basket;
+    }
+
+    /**
+     * clien valid basket
+     * transfer articles and client in commande && remove basket
+     * 
+     * @Rest\View(serializerGroups={"client"})
+     * @Rest\Get("/client/{client_id}/basket/commande")
+     */
+    public function getBasketCommandeAction($client_id)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $client = $em->getRepository('AppBundle:Client')->find($client_id);
+        // get by dependances of basket
+
+        $basket = $client->getBasketParent();
+        $articles = $basket->getArticles();
+        
+        $commande = new Commande();
+
+        // push articles in commande
+        foreach($articles as $article){
+            $commande->addArticle($article);
+            $basket->removeArticle($article);
+            $article->removeBasket($basket);            
+        }
+
+        $commande->setClient($client);
+        $client->addCommande($commande);
+
+        $em->persist($commande);
+        $em->flush();
+
+        return $commande;
     }
 }

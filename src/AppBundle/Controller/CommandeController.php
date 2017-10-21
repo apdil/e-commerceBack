@@ -21,6 +21,19 @@ use FOS\RestBundle\View\View;
 
 class CommandeController extends Controller
 {
+
+    /**
+     * @Rest\View(serializerGroups={"commande"})
+     * @Rest\Get("/commandes")
+     */
+    public function getCommandeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $commandes = $em->getRepository('AppBundle:Commande')->findAll();
+
+        return $commandes;
+    }
+
     /**
      * @Rest\View(serializerGroups={"commande"})
      * @Rest\Get("/commande/{id}")
@@ -28,36 +41,11 @@ class CommandeController extends Controller
     public function getCommandesAction($id)
     {
         $em = $this->getDoctrine()->getManager();
-        $commandes = $em->getRepository('AppBundle:Commande')->find($id);
+        $commande = $em->getRepository('AppBundle:Commande')->find($id);
 
-        return $commandes;
-    }
-
-    /**
-     * @Rest\View(serializerGroups={"commande"})
-     * @Rest\Get("/commande/basket/{basket_id}/validate")
-     */
-    public function getValidBasketAction($basket_id)
-    {
-        $em = $this->getDoctrine()->getManager();
-        $basket = $em->getRepository('AppBundle:Basket')->find($basket_id);
-        // get by dependances
-        $articles = $basket->getArticles();
-        $client = $basket->getClientParent();
-        
-        $commande = new Commande();
-
-        // push articles in commande
-        foreach($articles as $article){
-            $commande->addArticle($article);
-            $basket->removeArticle($article);
+        if (empty($commande)) {
+            return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
-
-        $commande->setClient($client);
-        $client->addCommande($commande);
-
-        $em->persist($commande);
-        $em->flush();
 
         return $commande;
     }
