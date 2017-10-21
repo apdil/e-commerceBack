@@ -17,12 +17,7 @@ class CommandeType extends AbstractType
     {
         $builder->add('preparateur')
                 ->add('client')
-                ->add('articles', EntityType::class, array(
-                    'class' => 'AppBundle:Article',
-                    'choice_label' => 'name',
-                    'multiple' => true
-                    // 'expanded' => true,
-                ));
+                ->add('articles');
     }
     
     /**

@@ -31,6 +31,13 @@ class Commande
     private $treatment = false;
 
     /**
+     * @var bool
+     *
+     * @ORM\Column(name="delivring", type="boolean")
+     */
+    private $inDelivring = false;
+
+    /**
     * @ORM\ManyToMany(targetEntity="Preparateur", inversedBy="commandes", cascade={"persist"})
     * @ORM\JoinTable(name="commande_preparateur")
     */
@@ -179,5 +186,29 @@ class Commande
     public function getTreatment()
     {
         return $this->treatment;
+    }
+
+    /**
+     * Set inDelivring
+     *
+     * @param boolean $inDelivring
+     *
+     * @return Commande
+     */
+    public function setInDelivring($inDelivring)
+    {
+        $this->inDelivring = $inDelivring;
+
+        return $this;
+    }
+
+    /**
+     * Get inDelivring
+     *
+     * @return boolean
+     */
+    public function getInDelivring()
+    {
+        return $this->inDelivring;
     }
 }

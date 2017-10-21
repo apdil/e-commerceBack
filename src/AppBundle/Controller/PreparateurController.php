@@ -19,10 +19,10 @@ use FOS\RestBundle\View\View;
 class PreparateurController extends Controller
 {
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"preparateur"})
      * @Rest\Get("/preparateur")
      */
-    public function getAction()
+    public function getAllAction()
     {
         $em = $this->getDoctrine()->getManager();
 
@@ -32,7 +32,21 @@ class PreparateurController extends Controller
     }
 
     /**
-     * @Rest\View()
+     * @Rest\View(serializerGroups={"preparateur"})
+     * @Rest\Get("/preparateur/{id}")
+     */
+    public function getPreparateurAction($id)
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $preparateur = $em->getRepository('AppBundle:Preparateur')->find($id);
+
+        return $preparateur;
+    }
+
+    /**
+     * create preparateur
+     * @Rest\View(serializerGroups={"preparateur"})
      * @Rest\Post("/preparateur")
      */
     public function postAction(Request $request)
@@ -52,4 +66,44 @@ class PreparateurController extends Controller
             return $form;
         }
     }
+
+    /**
+     * @Rest\View(serializerGroups={"preparateur"})
+     * @Rest\Get("/preparateur/{preparateur_id}/commande/{commande_id}")
+     */
+    public function getCheckAction($preparateur_id, $commande_id){
+
+        $em = $this->getDoctrine()->getManager();
+
+        $preparateur = $em->getRepository('AppBundle:Preparateur')->find($preparateur_id);
+        $commande = $em->getRepository('AppBundle:Commande')->find($commande_id);
+
+        $preparateur->addCommande($commande);
+        $commande->addPreparateur($preparateur);
+        $commande->setTreatment(true);
+
+        $em->flush();
+
+        return $preparateur;
+
+    }
+
+    /**
+     * @Rest\View(serializerGroups={"preparateur"})
+     * @Rest\Get("/preparateur/{preparateur_id}/commande/{commande_id}/delivred")
+     */
+    public function getDelivredAction($preparateur_id, $commande_id){
+        
+                $em = $this->getDoctrine()->getManager();
+        
+                $preparateur = $em->getRepository('AppBundle:Preparateur')->find($preparateur_id);
+                $commande = $em->getRepository('AppBundle:Commande')->find($commande_id);
+        
+                $commande->setInDelivring(true);
+        
+                $em->flush();
+        
+                return $preparateur;
+        
+            }
 }
