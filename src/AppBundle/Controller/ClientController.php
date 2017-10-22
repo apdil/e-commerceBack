@@ -133,10 +133,10 @@ class ClientController extends Controller
         
         if($form->isValid()){
             // Si l'utilisateur veut changer son mot de passe
-            if (!empty($user->getPlainPassword())) {
+            if (!empty($client->getPlainPassword())) {
                 $encoder = $this->get('security.password_encoder');
-                $encoded = $encoder->encodePassword($user, $user->getPlainPassword());
-                $user->setPassword($encoded);
+                $encoded = $encoder->encodePassword($client, $client->getPlainPassword());
+                $client->setPassword($encoded);
             }
             $em->merge($client);
             $em->flush();

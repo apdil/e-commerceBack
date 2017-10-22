@@ -22,3 +22,6 @@ basket:
 preparateur:
     type:     rest
     resource: AppBundle\Controller\PreparateurController
+auth-token:
+    type:     rest
+    resource: AppBundle\Controller\AuthTokenController

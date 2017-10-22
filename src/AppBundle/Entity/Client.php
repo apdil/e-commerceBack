@@ -38,10 +38,6 @@ class Client implements UserInterface
      */
     protected $password;
 
-     /**
-     * @var string $plainPassword
-     */
-
     protected $plainPassword;
 
     /**
@@ -353,7 +349,7 @@ class Client implements UserInterface
 
     public function getUsername()
     {
-        return $this->email;
+        return $this->name;
     }
 
     public function eraseCredentials()

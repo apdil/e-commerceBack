@@ -6,3 +6,11 @@ AppBundle\Entity\Client:
             - Length:
                 min: 4
                 max: 50
+AppBundle\Entity\Credentials:
+    properties:
+        name:
+            - NotBlank: ~
+            - Type: string
+        password:
+            - NotBlank: ~
+            - Type: string

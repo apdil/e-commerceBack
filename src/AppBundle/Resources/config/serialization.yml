@@ -1,17 +1,17 @@
 AppBundle\Entity\Client:
     attributes:
         id:
-            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur']
+            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur', 'auth-token']
         name:
-            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur']
+            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur', 'auth-token']
         lastname:
-            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur']
+            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur', 'auth-token']
         email:
-            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur']
+            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur', 'auth-token']
         birthdate:
-            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur']  
+            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur', 'auth-token']  
         sex:
-            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur']
+            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur', 'auth-token']
         commandes:
             groups: ['client', 'location']
         basket_parent:
@@ -100,3 +100,14 @@ AppBundle\Entity\Preparateur:
             groups: ['preparateur']
         commandes:
             groups: ['preparateur']
+
+AppBundle\Entity\AuthToken:
+    attributes:
+        id:
+            groups: ['auth-token']
+        value:
+            groups: ['auth-token']
+        createdAt:
+            groups: ['auth-token']
+        user:
+            groups: ['auth-token']
