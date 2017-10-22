@@ -66,7 +66,7 @@ class ClientController extends Controller
         $location = new Location();
         $basket = new Basket();
 
-        $form = $this->createForm(ClientType::class, $client);
+        $form = $this->createForm(ClientType::class, $client, ['validation_groups'=>['Default', 'New']]);
 
         $form->submit($request->request->all()); // Validation des données
 
@@ -74,7 +74,11 @@ class ClientController extends Controller
         $client->setBasketParent($basket);
         $basket->setClientParent($client);
 
-        if ($form->isValid()) {        
+        if ($form->isValid()) { 
+            $encoder = $this->get('security.password_encoder');
+            $encoded = $encoder->encodePassword($client, $client->getPlainPassword());
+            $client->setPassword($encoded);
+            
             $em = $this->get('doctrine.orm.entity_manager');
             $em->persist($client);
             $em->persist($location);
@@ -116,11 +120,24 @@ class ClientController extends Controller
             return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $form = $this->createForm(ClientType::class, $client);
+        if ($clearMissing) { // Si une mise à jour complète, le mot de passe doit être validé
+            $options = ['validation_groups'=>['Default', 'FullUpdate']];
+        } else {
+            $options = []; // Le groupe de validation par défaut de Symfony est Default
+        }
+
+        $form = $this->createForm(ClientType::class, $client, $options);
 
         $form->submit($request->request->all(), $clearMissing);
 
+        
         if($form->isValid()){
+            // Si l'utilisateur veut changer son mot de passe
+            if (!empty($user->getPlainPassword())) {
+                $encoder = $this->get('security.password_encoder');
+                $encoded = $encoder->encodePassword($user, $user->getPlainPassword());
+                $user->setPassword($encoded);
+            }
             $em->merge($client);
             $em->flush();
             return $client;

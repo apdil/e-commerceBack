@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 
 
@@ -19,7 +20,7 @@ class ClientType extends AbstractType
     {
         $builder
         ->add('name')
-        ->add('mdp')
+        ->add('plainPassword', TextType::class)
         ->add('lastname')
         ->add('email')
         ->add('birthdate')->add('sex')->add('commandes')->add('basket_parent');

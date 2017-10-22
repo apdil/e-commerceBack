@@ -38,10 +38,6 @@ class Client implements UserInterface
      */
     protected $password;
 
-     /**
-     * @var string $plainPassword
-     */
-
     protected $plainPassword;
 
     /**
@@ -329,16 +325,6 @@ class Client implements UserInterface
     public function setPassword($password)
     {
         $this->password = $password;
-    }
-
-    public function getPlainPassword()
-    {
-        return $this->plainPassword;
-    }
-
-    public function setPlainPassword($plainPassword)
-    {
-        $this->plainPassword = $plainPassword;
     }
 
     public function getRoles()

@@ -4,8 +4,6 @@ AppBundle\Entity\Client:
             groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur']
         name:
             groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur']
-        mdp:
-            groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur']
         lastname:
             groups: ['client', 'location', 'commande', 'basket', 'article', 'preparateur']
         email:
