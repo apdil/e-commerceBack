@@ -179,16 +179,17 @@ class ClientController extends Controller
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('AppBundle:Client')->find($client_id);
         $article = $em->getRepository('AppBundle:Article')->find($article_id);
+        $basket = $client->getBasketParent();
 
         if (empty($client) || empty($article)) {
             return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $basket = $client->getBasketParent();
-
         $basket->addArticle($article);
         $article->addBasket($basket);
 
+        // calcule price of articles
+        $this->priceCalcul($basket->getArticles(), $basket);
         $em->flush();
 
         return $client;
@@ -205,18 +206,29 @@ class ClientController extends Controller
         $em = $this->getDoctrine()->getManager();
         $client = $em->getRepository('AppBundle:Client')->find($client_id);
         $article = $em->getRepository('AppBundle:Article')->find($article_id);
+        $basket = $client->getBasketParent();
 
         if (empty($client) || empty($article)) {
             return \FOS\RestBundle\View\View::create(['message' => 'Place not found'], Response::HTTP_NOT_FOUND);
         }
 
-        $basket = $client->getBasketParent();
-
         $basket->removeArticle($article);
         $article->removeBasket($basket);
+        
+        // calcule price of articles
+        $this->priceCalcul($basket->getArticles(), $basket);
         $em->flush();
 
         return $basket;
+    }
+
+    private function priceCalcul($articles, $basket){
+        $price = 0;
+        foreach($articles as $article){
+            $price += $article->getPrice();
+        }
+
+        $basket->setPrice($price);
     }
 
     /**
@@ -243,6 +255,8 @@ class ClientController extends Controller
             $basket->removeArticle($article);
             $article->removeBasket($basket);            
         }
+
+        $this->priceCalcul($articles, $basket);
 
         $commande->setClient($client);
         $client->addCommande($commande);

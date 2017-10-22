@@ -73,7 +73,7 @@ class PreparateurController extends Controller
     }
 
     /**
-     * preparateur s'occupe de la commande
+     * preparateur s'occupe de la commande 
      * 
      * @Rest\View(serializerGroups={"preparateur"})
      * @Rest\Get("/preparateur/{preparateur_id}/commande/{commande_id}")
