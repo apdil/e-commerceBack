@@ -23,7 +23,12 @@ class ClientType extends AbstractType
         ->add('plainPassword', TextType::class)
         ->add('lastname')
         ->add('email')
-        ->add('birthdate')->add('sex')->add('commandes')->add('basket_parent');
+        ->add('birthdate', DateTimeType::class, [
+            'widget' => 'single_text',
+            'format' => 'dd-MM-yyyy',
+        ])
+        
+        ->add('sex')->add('commandes')->add('basket_parent');
     }
     
     /**
