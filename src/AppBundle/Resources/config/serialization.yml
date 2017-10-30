@@ -29,15 +29,15 @@ AppBundle\Entity\Client:
 AppBundle\Entity\Location:
     attributes:
         id:
-            groups: ['client', 'location', 'preparateur']
+            groups: ['client', 'location', 'preparateur', 'auth-token']
         adress:
-            groups: ['client', 'location', 'preparateur']
+            groups: ['client', 'location', 'preparateur', 'auth-token']
         city:
-            groups: ['client', 'location', 'preparateur']
+            groups: ['client', 'location', 'preparateur', 'auth-token']
         codePostale:
-            groups: ['client', 'location', 'preparateur']
+            groups: ['client', 'location', 'preparateur', 'auth-token']
         tel:
-            groups: ['client', 'location', 'preparateur']
+            groups: ['client', 'location', 'preparateur', 'auth-token']
         client:
             groups: ['location']
 
@@ -45,56 +45,63 @@ AppBundle\Entity\Location:
 AppBundle\Entity\Article:
     attributes:
         id:
-            groups: ['article', 'categorie', 'client', 'commande', 'basket', 'preparateur']
+            groups: ['article', 'categorie', 'client', 'commande', 'basket',
+             'preparateur', 'auth-token']
         name:
-            groups: ['article', 'categorie', 'client', 'commande', 'basket', 'preparateur']
+            groups: ['article', 'categorie', 'client', 'commande', 'preparateur',
+             'auth-token']
         description:
-            groups: ['article', 'categorie', 'client', 'commande', 'basket', 'preparateur']
+            groups: ['article', 'categorie', 'client', 'commande', 'preparateur',
+             'auth-token']
         price:
-            groups: ['article', 'categorie', 'client', 'commande', 'basket', 'preparateur']
+            groups: ['article', 'categorie', 'client', 'commande', 'preparateur',
+             'auth-token']
         img:
-            groups: ['article', 'categorie', 'client', 'commande', 'basket', 'preparateur']
+            groups: ['article', 'categorie', 'client', 'commande', 'preparateur',
+             'auth-token']
         marque:
-            groups: ['article', 'categorie', 'client', 'commande', 'basket', 'preparateur']
+            groups: ['article', 'categorie', 'client', 'commande', 'preparateur',
+             'auth-token']
         categories:
-            groups: ['article', 'client', 'commande', 'basket', 'preparateur']
+            groups: ['article', 'client', 'commande', 'preparateur', 'auth-token']
         basket:
             groups: ['article']  
 
 AppBundle\Entity\Categorie:
     attributes:
         name:
-            groups: ['categorie', 'article', 'client', 'commande', 'basket', 'preparateur'] 
+            groups: ['categorie', 'article', 'client', 'commande', 'basket', 'preparateur',
+             'auth-token'] 
         articles:
             groups: ['categorie'] 
 
 AppBundle\Entity\Basket:
     attributes:
         id:
-            groups: ['client', 'basket', 'commande', 'article']
+            groups: ['client', 'basket', 'commande', 'article', 'auth-token']
         price:
-            groups: ['client', 'basket', 'commande', 'article'] 
+            groups: ['client', 'basket', 'commande', 'article', 'auth-token'] 
         delivry:
-            groups: ['client', 'basket', 'commande', 'article']
+            groups: ['client', 'basket', 'commande', 'article', 'auth-token']
         articles:
-            groups: ['client', 'basket', 'commande','preparateur']
+            groups: ['client', 'basket', 'commande','preparateur', 'auth-token']
         client_parent:
             groups: ['basket', 'commande', 'article', 'preparateur'] 
 
 AppBundle\Entity\Commande:
     attributes:
         id:
-            groups: ['client', 'article', 'commande']
+            groups: ['client', 'article', 'commande', 'auth-token']
         client:
             groups: ['commande', 'preparateur']
         articles:
             groups: ['commande', 'client', 'preparateur']
         preparateur:
-            groups: ['commande']
+            groups: ['commande', 'auth-token']
         treatment:
-            groups: ['commande', 'client', 'preparateur']
+            groups: ['commande', 'client', 'preparateur', 'auth-token']
         inDelivring:
-            groups: ['commande', 'client', 'preparateur']
+            groups: ['commande', 'client', 'preparateur', 'auth-token']
 
 AppBundle\Entity\Preparateur:
     attributes:
