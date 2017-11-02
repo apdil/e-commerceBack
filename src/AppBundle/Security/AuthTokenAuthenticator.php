@@ -31,11 +31,23 @@ class AuthTokenAuthenticator implements SimplePreAuthenticatorInterface, Authent
 
         $targetUrl = '/auth-tokens';
         // Si la requête est une création de token, aucune vérification n'est effectuée
-        if ($request->getMethod() === "POST" && $this->httpUtils->checkRequestPath($request, $targetUrl)) {
+        if ($request->getMethod() === "POST" && $this->httpUtils
+        ->checkRequestPath($request, $targetUrl)) {
             return;
         }
 
-        if ($request->getMethod() === "POST" && $this->httpUtils->checkRequestPath($request, '/client')) {
+        if ($request->getMethod() === "POST" && $this->httpUtils
+        ->checkRequestPath($request, '/client')) {
+            return;
+        }
+
+        if ($request->getMethod() === "GET" && $this->httpUtils
+        ->checkRequestPath($request, '/articles')) {
+            return;
+        }
+
+        if ($request->getMethod() === "GET" && $this->httpUtils
+        ->checkRequestPath($request, 'get_article_foo')) {
             return;
         }
 

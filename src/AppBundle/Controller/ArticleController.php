@@ -35,7 +35,7 @@ class ArticleController extends Controller
 
     /**
     * @Rest\View(serializerGroups={"article"})
-    * @Rest\Get("article/{id}")
+    * @Rest\Get("article/{id}", name="_foo")
     */
     public function getArticleAction($id)
     {
