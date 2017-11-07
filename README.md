@@ -4,7 +4,7 @@
 
 *Outils*
 
-*FOSRestBundle
-*NelmioApiDocBundle
-*Utilisation des token pour l'API dans le header.
+* FOSRestBundle
+* NelmioApiDocBundle
+* Utilisation des token pour l'API dans le header.
 
