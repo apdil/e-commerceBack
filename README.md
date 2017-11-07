@@ -1,4 +1,8 @@
-e-commerceBack
-==============
+# Dernier Projet Simplon
 
-A Symfony project created on October 11, 2017, 10:47 am.
+## Réalisation d'une API avec SYMFONY3
+
+outils: ###FOSRestBundle
+        ###NelmioApiDocBundle
+        ###Utilisation des token pour l'API dans le header.
+        
