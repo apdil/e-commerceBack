@@ -2,7 +2,7 @@
 
 ## Réalisation d'une API avec SYMFONY3
 
-_Outils_:
+__Outils__:
 
 * FOSRestBundle
 * NelmioApiDocBundle
